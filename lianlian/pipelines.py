@@ -14,13 +14,11 @@ from lianlian.items import *
 from lianlian.engines import choise_engine
 
 
-
 def dff_df(df):
     df2 = df.T
     df4 = df2[df2[0] != ""]
     dff = df4.T
     return dff
-
 
 
 def clean3(str1):
@@ -32,10 +30,10 @@ def clean3(str1):
     return last_str
 
 
-
 TABLE_DICT = {
-    CrawlLianlianItem: 'lianlian',
-
+    CrawlLianlianItem: 'lianlian_product',
+    LianlianItem: 'lianlian_item',
+    LianlianshopItem: 'lianlian_shop'
 
 }
 from lianlian.iosjk import to_sql
@@ -51,5 +49,3 @@ class CrawlYhousePipeline(object):
         # clean_df = for_columns(df)
         to_sql(table, choise_engine, df, type="update")
         return item
-
-
