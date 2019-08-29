@@ -105,6 +105,7 @@ class LianlianSpider(scrapy.Spider):
         item = response.meta["item"]
         try:
             address = data['address']
+            item['sold_out'] = data['isSoldOut']
             item['address'] = address
             item['title_name'] = data['name']
         except KeyError:

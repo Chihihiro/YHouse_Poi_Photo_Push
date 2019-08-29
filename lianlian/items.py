@@ -18,5 +18,6 @@ class CrawlLianlianItem(scrapy.Item):
     price = scrapy.Field()#价格
     sales = scrapy.Field()# 销量
     title_name = scrapy.Field()# 销量
+    sold_out = scrapy.Field()# s售罄
 
     pass
