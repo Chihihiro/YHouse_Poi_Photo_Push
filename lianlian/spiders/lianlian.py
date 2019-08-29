@@ -30,14 +30,25 @@ class LianlianSpider(scrapy.Spider):
 
     def parse(self, response):
         info = json.loads(response.body)
-        data = info['data']["hotSiteList"]
+        data = info['data']["allSiteList"]
+        print(data)
+        bb = [i['siteList'] for i in data]
         item = CrawlLianlianItem()
-        for id in data:
-            print(id)
-            city_id = id['id']
-            item['city'] = id['city']
-            url = 'https://api.lianlianlvyou.com/v1/wx/list?i=&t=1&pageSize=10&pageIndex=1&locationid=' + str(city_id)
-            yield Request(url, callback=self.Details_page, meta={"item": deepcopy(item)})
+        # cc = [[x.get('id') for x in i] for i in bb]
+        # dd = []
+        # for i in cc:
+        #     for x in i:
+        #         dd.append(x)
+        n = 0
+        for b in bb:
+            for id in b:
+                city_id = id['id']
+                print(city_id)
+                n+=1
+                print(n, id['city'])
+                item['city'] = id['city']
+                url = 'https://api.lianlianlvyou.com/v1/wx/list?i=&t=1&pageSize=10&pageIndex=1&locationid=' + str(city_id)
+                yield Request(url, callback=self.Details_page, meta={"item": deepcopy(item)})
 
 
 
