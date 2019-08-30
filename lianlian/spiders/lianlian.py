@@ -92,8 +92,8 @@ class LianlianSpider(scrapy.Spider):
         item['product_id'] = data['id']
         item['product_name'] = data['name']
         item['product_title'] = data['title']
-        item['address'] = re.sub('商家地址：','', data['address'])
-        item['tel'] = re.sub('咨询电话：|配送范围：|商家电话：|电话：','', data['tel'])
+        item['address'] = re.sub('商家地址：|景区地址：|酒店地址：|地址：','', data['address'])
+        item['tel'] = re.sub('联系方式：|咨询电话：|配送范围：|商家电话：|客服电话：|电话：|电话','', data['tel'])
         item['sale_price'] = re.search('\d+',data['salePriceStr']).group()
         item['original_price'] = re.search('\d+',data['originPriceStr']).group()
         item['sale_amount'] = data['saleAmount']
@@ -101,8 +101,8 @@ class LianlianSpider(scrapy.Spider):
         item['single_min'] = data['singleMin']
         item['single_max'] = data['singleMax']
         item['sold_out'] = data['isSoldOut']
-        item['valid_begin_date'] = data['validBeginDate']
-        item['valid_end_date'] = data['validEndDate']
+        item['valid_begin_date'] = int(data['validBeginDate'])/1000
+        item['valid_end_date'] = int(data['validEndDate'])/1000
 
         try:
             shops = data['shops']
