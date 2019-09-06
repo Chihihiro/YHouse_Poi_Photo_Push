@@ -94,8 +94,8 @@ class LianlianSpider(scrapy.Spider):
         item['product_title'] = data['title']
         item['address'] = re.sub('商家地址：|景区地址：|酒店地址：|地址：','', data['address'])
         item['tel'] = re.sub('联系方式：|咨询电话：|配送范围：|商家电话：|客服电话：|电话：|电话','', data['tel'])
-        item['sale_price'] = re.search('\d+',data['salePriceStr']).group()
-        item['original_price'] = re.search('\d+',data['originPriceStr']).group()
+        item['sale_price'] = data['salePrice']
+        item['original_price'] = data['originPrice']
         item['sale_amount'] = data['saleAmount']
         item['stock_amount'] = data['stockAmount']
         item['single_min'] = data['singleMin']
